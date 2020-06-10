@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id'
     ];
 
     /**
@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getImageAttribute()
+    {
+        return $this->attributes['image'] ? "/storage/" . $this->attributes['image'] : 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcScLS5HdOhJlUoK5qQTWANLQC1mcIdfdywD8i5nMnCuUiCd7ftP&usqp=CAU';
+    }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
 }
